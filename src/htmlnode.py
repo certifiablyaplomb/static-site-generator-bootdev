@@ -50,7 +50,7 @@ class ParentNode(HTMLNode):
             raise ValueError('parent nodes require a tag')
         if not self.children:
             raise ValueError('parent nodes require children')
-        
+        # if self.tag != 'pre':
         final_product=f'<{self.tag}{self.props_to_html()}>'
         for element in self.children:
             final_product += element.to_html()
