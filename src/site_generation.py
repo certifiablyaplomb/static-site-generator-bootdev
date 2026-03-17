@@ -28,8 +28,8 @@ def generate_page(from_path, template_path, dest_path, base_path):
     template = template.replace("{{ Title }}", title)
     template = template.replace("{{ Content }}", html)
     ##update base_path
-    template = template.replace('href="/', f'href="{base_path}')
-    template = template.replace('src="/', f'src="{base_path}')
+    template = template.replace('href="/', f'href="{base_path}/')
+    template = template.replace('src="/', f'src="{base_path}/')
 
     
     if not os.path.exists(dest_path): ##really shouldn't be possible, but hey why not

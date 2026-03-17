@@ -2,9 +2,9 @@ import os
 import shutil
 import sys
 
-from site_generation import generate_page, generate_pages_recursive
+from site_generation import generate_pages_recursive
 
-if sys.argv[1]:
+if len(sys.argv) > 1:
     BASE_PATH = sys.argv[1]
 else:
     BASE_PATH = '/'
