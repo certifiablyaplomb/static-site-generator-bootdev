@@ -4,10 +4,10 @@ import sys
 
 from site_generation import generate_pages_recursive
 
-# if len(sys.argv) > 1:
-#     BASE_PATH = sys.argv[1]
-# else:
-BASE_PATH = '/'
+if len(sys.argv) > 1:
+    BASE_PATH = sys.argv[1]
+else:
+    BASE_PATH = '/'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PUBLIC_DIR = os.path.join(BASE_DIR, "../public")

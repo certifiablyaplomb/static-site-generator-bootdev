@@ -1,1 +1,1 @@
-uv run ./src/main.py "./static-site-generator-bootdev/"
+python3 src/main.py "/static-site-generator-bootdev/"
