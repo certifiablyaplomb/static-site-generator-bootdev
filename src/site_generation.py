@@ -10,7 +10,7 @@ def extract_title(markdown):
             return block_info[1]
     raise Exception("no <h1> element was found")
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, base_path):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
     markdown = ''
     with open(from_path, 'r') as markdown_file:
@@ -24,8 +24,13 @@ def generate_page(from_path, template_path, dest_path):
     htmlnode = markdown_to_html_node(markdown)
     html = htmlnode.to_html()
 
+    ##fill content
     template = template.replace("{{ Title }}", title)
     template = template.replace("{{ Content }}", html)
+    ##update base_path
+    template = template.replace('href="/', f'href="{base_path}')
+    template = template.replace('src="/', f'src="{base_path}')
+
     
     if not os.path.exists(dest_path): ##really shouldn't be possible, but hey why not
         os.mkdir(dest_path)
@@ -34,7 +39,7 @@ def generate_page(from_path, template_path, dest_path):
     with open(html_file_path, 'w') as file:
         file.write(template)
 
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, base_path):
     branches = os.listdir(dir_path_content)
     
     for branch in branches:
@@ -43,6 +48,6 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
         if not os.path.isfile(branch_dir):
             if not os.path.exists(new_dest_dir_path):
                 os.mkdir(new_dest_dir_path)
-            generate_pages_recursive(branch_dir, template_path, new_dest_dir_path)
+            generate_pages_recursive(branch_dir, template_path, new_dest_dir_path, base_path)
         else:
-            generate_page(branch_dir, template_path, dest_dir_path.replace('.md', '.html'))
+            generate_page(branch_dir, template_path, dest_dir_path.replace('.md', '.html'), base_path)
